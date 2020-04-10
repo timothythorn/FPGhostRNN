@@ -3,14 +3,14 @@ function [yi, p, pval] = hdd(x, y, yp, ypp, xi,order)
 if order == 1
    yp = [];
    ypp = [];
-   pval = length(x)*(0+1) - 1;
+   pval = length(x)- 1;
 elseif order == 2
    ypp = [];
-   pval = length(x)*(1+1) - 1;
+   pval = 2*length(x) - 1;
 elseif order ==3
-   pval = length(x)*(2+1) - 1;
+   pval = 3*length(x) - 1;
 else
-   fprintf('Order not valid') 
+   fprintf('Please enter an order between 1 and 3') 
 end
 x = reshape(repmat(x,order,1),1,length(x)*order);
 y = reshape(repmat(y,order,1),1,length(y)*order);
