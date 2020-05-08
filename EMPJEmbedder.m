@@ -1,15 +1,8 @@
 N=40;
 g_gg=1;
 Tau=.1;
-%x = 0:0.5:4.5;
-%y = subs(f);
 k=64;
-% th=0:pi/k:pi;
-% ph=0:2*pi/k:2*pi;
-% x=sin(th).*cos(ph);
-% y=cos(th).*sin(ph);
-% z=cos(th);
-% X=[x;y;z];
+
 [q,r]=gramschmidt(randn(N,1));
 A=zeros(N,N);
 B=zeros(N,N);
@@ -22,15 +15,22 @@ for i=1:N
     B(i,:)=Tau*(y+(1/Tau)*1)*Ut;
 end
 
-RandMat=0;%randn(N,N)*0.01;
-WBig=(B-RandMat)\(A+RandMat);
-size(WBig)
-norm(WBig)
-Wnormed=WBig./norm(WBig);
-norm(Wnormed)
+RandMat=randn(N,N)*0;
+A=A+RandMat;
+A=reshape(A,1600,1);
+B=reshape(B,1600,1);
+A=diag(A);B=diag(B);
+W=linsolve(B,A);
+W=diag(W);
+W=reshape(W,N,N);
+%WBig=linsolve(B,A+RandMat);
+%size(WBig)
+%norm(WBig)
+%Wnormed=WBig./norm(WBig)*10;
+%norm(Wnormed)
 
 %W=sqrt(g_gg^2/N)*randn(N);
-%x=randn(N,1);
+%x=randn(N,1); 
 %I=0;
 %[U,E]=eig(W)
 
